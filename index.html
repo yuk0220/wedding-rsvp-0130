@@ -1,157 +1,191 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Wedding Invitation">
-    <meta property="og:description" content="Our Special Day">
-    <meta property="og:image" content="">
-    <title>Wedding Invitation</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="신랑 & 신부의 결혼식에 초대합니다">
+  <meta property="og:description" content="2026년 1월 30일">
+  <meta property="og:image" content="">
+  <title>Wedding Invitation</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text fade-in">
-                <h1 class="couple-names">신랑 & 신부</h1>
-                <p class="wedding-date">2026.05.13</p>
-                <p class="hero-message">함께하는 기쁨</p>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="scroll-dot"></div>
-        </div>
-    </section>
 
-    <!-- Opening Message -->
-    <section class="opening-message">
-        <div class="message-content scroll-reveal">
-            <p class="message-text">
-                사랑하는 가족과 친구분들께
-            </p>
-            <p class="message-subtext">
-                저희의 특별한 날을 함께해 주시기를 바랍니다.
-            </p>
+  <!-- ① 히어로 -->
+  <!-- 인터랙션: 스크롤 시 편지봉투 오픈 → 사진 reveal -->
+  <section class="hero" id="hero">
+    <div class="hero-envelope">
+      <div class="envelope-flap"></div>
+      <div class="envelope-body">
+        <div class="envelope-photo"></div>
+      </div>
+    </div>
+    <div class="hero-text">
+      <p class="hero-names">신부 <span>&</span> 신랑</p>
+      <!-- 타이핑 또는 손글씨 stroke 애니메이션 -->
+      <h1 class="hero-title" data-typing>Our Day</h1>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-dot"></div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"><span>✦</span></div>
+
+  <!-- ② 요약 안내 -->
+  <section class="summary" id="summary">
+    <ul class="summary-list scroll-reveal">
+      <li>
+        <span class="summary-label">날짜</span>
+        <span class="summary-value">2026년 1월 30일 금요일</span>
+      </li>
+      <li>
+        <span class="summary-label">시간</span>
+        <span class="summary-value">오후 12시 30분</span>
+      </li>
+      <li>
+        <span class="summary-label">장소</span>
+        <span class="summary-value">예식장 이름</span>
+      </li>
+    </ul>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"><span>✦</span></div>
+
+  <!-- ③ 인사말 -->
+  <!-- 손글씨체 폰트, fade-up 등장 -->
+  <section class="greeting" id="greeting">
+    <div class="greeting-content scroll-reveal">
+      <p class="greeting-label">Invitation</p>
+      <p class="greeting-text handwriting">
+        저희 두 사람이 특별한 사람을<br>
+        소중한 인연의 함께하고 싶습니다.<br>
+        함께하는 기쁨을 함께하며<br>
+        서로를 아끼는 서로,<br>
+        선생의 모든 날을 함께하고자 합니다.
+      </p>
+      <div class="greeting-family">
+        <p>아버지 · 어머니 이름 <span class="family-role">신랑</span></p>
+        <p>아버지 · 어머니 이름 <span class="family-role">신부</span></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"><span>✦</span></div>
+
+  <!-- ④ 일자 -->
+  <section class="date" id="date">
+    <div class="date-content scroll-reveal">
+      <p class="date-label">Save the date</p>
+      <p class="date-year">2026년</p>
+      <p class="date-main">
+        <span class="date-month">01월</span>
+        <span class="date-day">30일</span>
+      </p>
+      <p class="date-time">금요일 오후 12시 30분</p>
+      <!-- 캘린더 -->
+      <div class="date-calendar" aria-label="1월 달력">
+        <div class="calendar-header">
+          <span>일</span><span>월</span><span>화</span>
+          <span>수</span><span>목</span><span>금</span><span>토</span>
         </div>
-    </section>
-
-    <!-- Couple Introduction -->
-    <section class="couple-intro">
-        <div class="couple-grid">
-            <div class="couple-card fade-up">
-                <div class="couple-image groom"></div>
-                <h3>신랑</h3>
-                <p class="couple-name">이름</p>
-                <p class="couple-description">가족 정보</p>
-            </div>
-            <div class="couple-card fade-up" style="animation-delay: 0.2s;">
-                <div class="couple-image bride"></div>
-                <h3>신부</h3>
-                <p class="couple-name">이름</p>
-                <p class="couple-description">가족 정보</p>
-            </div>
+        <div class="calendar-body">
+          <!-- JS로 렌더링하거나 정적 마크업 -->
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Wedding Information -->
-    <section class="wedding-info">
-        <h2>예식 정보</h2>
-        <div class="info-grid">
-            <div class="info-card scroll-reveal">
-                <p class="info-label">날짜</p>
-                <p class="info-value">2026년 5월 13일</p>
-            </div>
-            <div class="info-card scroll-reveal">
-                <p class="info-label">시간</p>
-                <p class="info-value">오후 3시</p>
-            </div>
-            <div class="info-card scroll-reveal">
-                <p class="info-label">장소</p>
-                <p class="info-value">예식홀 이름</p>
-            </div>
-            <div class="info-card scroll-reveal">
-                <p class="info-label">연락처</p>
-                <p class="info-value">010-XXXX-XXXX</p>
-            </div>
+  <div class="section-divider" aria-hidden="true"><span>✦</span></div>
+
+  <!-- ⑤ 위치 -->
+  <section class="location" id="location">
+    <div class="location-content scroll-reveal">
+      <p class="location-label">오시는 길</p>
+      <p class="location-name">예식장 이름</p>
+      <div class="map-container">
+        <!-- 카카오맵 또는 네이버맵 embed -->
+      </div>
+      <p class="location-address">서울시 구 도로명 주소</p>
+      <div class="location-buttons">
+        <button class="btn-map kakao" type="button">카카오맵</button>
+        <button class="btn-map naver" type="button">네이버지도</button>
+        <button class="btn-map copy" type="button" id="copyAddress">주소 복사</button>
+      </div>
+      <div class="location-transport">
+        <!-- 교통 정보 (지하철·버스·주차) -->
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"><span>✦</span></div>
+
+  <!-- ⑥ 사진 -->
+  <section class="gallery" id="gallery">
+    <p class="gallery-label scroll-reveal">Our moment</p>
+    <div class="gallery-grid">
+      <!-- Lazy loading 적용 -->
+      <div class="gallery-item scroll-reveal">
+        <img src="" alt="웨딩 사진 1" loading="lazy">
+      </div>
+      <div class="gallery-item scroll-reveal">
+        <img src="" alt="웨딩 사진 2" loading="lazy">
+      </div>
+      <div class="gallery-item scroll-reveal">
+        <img src="" alt="웨딩 사진 3" loading="lazy">
+      </div>
+      <div class="gallery-item scroll-reveal">
+        <img src="" alt="웨딩 사진 4" loading="lazy">
+      </div>
+    </div>
+    <!-- 확대 모달 -->
+    <div class="gallery-modal" id="galleryModal" hidden>
+      <button class="modal-close" type="button" aria-label="닫기">✕</button>
+      <img class="modal-image" src="" alt="">
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"><span>✦</span></div>
+
+  <!-- ⑦ 계좌 -->
+  <section class="account" id="account">
+    <div class="account-content scroll-reveal">
+      <p class="account-label">마음 전하실 곳</p>
+      <!-- 펼치기/접기 -->
+      <details class="account-item">
+        <summary>신랑측 계좌번호</summary>
+        <div class="account-detail">
+          <p><span>은행명</span> 000-000-000000</p>
+          <p class="account-holder">예금주 이름</p>
+          <button class="btn-copy" type="button">복사</button>
         </div>
-    </section>
-
-    <!-- Gallery -->
-    <section class="gallery">
-        <h2>갤러리</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item scroll-reveal">
-                <div class="gallery-placeholder"></div>
-            </div>
-            <div class="gallery-item scroll-reveal">
-                <div class="gallery-placeholder"></div>
-            </div>
-            <div class="gallery-item scroll-reveal">
-                <div class="gallery-placeholder"></div>
-            </div>
-            <div class="gallery-item scroll-reveal">
-                <div class="gallery-placeholder"></div>
-            </div>
+      </details>
+      <details class="account-item">
+        <summary>신부측 계좌번호</summary>
+        <div class="account-detail">
+          <p><span>은행명</span> 000-000-000000</p>
+          <p class="account-holder">예금주 이름</p>
+          <button class="btn-copy" type="button">복사</button>
         </div>
-    </section>
+      </details>
+    </div>
+  </section>
 
-    <!-- Location -->
-    <section class="location">
-        <h2>찾아오시는 길</h2>
-        <div class="map-placeholder"></div>
-        <div class="location-info">
-            <p class="address">서울시 강남구 테헤란로</p>
-            <div class="button-group">
-                <button class="btn btn-primary">카카오맵</button>
-                <button class="btn btn-secondary">네이버지도</button>
-                <button class="btn btn-tertiary">주소 복사</button>
-            </div>
-        </div>
-    </section>
+  <div class="section-divider" aria-hidden="true"><span>✦</span></div>
 
-    <!-- RSVP -->
-    <section class="rsvp">
-        <h2>참석 의사</h2>
-        <form class="rsvp-form">
-            <div class="form-group">
-                <label>성함</label>
-                <input type="text" name="name" placeholder="이름을 입력해주세요" required>
-            </div>
-            <div class="form-group">
-                <label>참석 여부</label>
-                <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="attendance" value="yes"> 참석
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="attendance" value="no"> 불참
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>동행 인원</label>
-                <select name="guests" required>
-                    <option value="">선택해주세요</option>
-                    <option value="1">1명</option>
-                    <option value="2">2명</option>
-                    <option value="3">3명</option>
-                    <option value="4">4명</option>
-                    <option value="5">5명 이상</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-submit">전송하기</button>
-        </form>
-    </section>
+  <!-- ⑧ 끝맺음 -->
+  <section class="ending" id="ending">
+    <div class="ending-content scroll-reveal">
+      <p class="ending-text">
+        함께 여러분이 보내준 따뜻한 마음에<br>
+        저희 두 사람은 행복을 기억하겠습니다.<br>
+        너그로운 마음으로 함께 해주세요.
+      </p>
+      <p class="ending-names">신랑 이름 · 신부 이름</p>
+      <div class="ending-photo"></div>
+    </div>
+  </section>
 
-    <!-- Ending Message -->
-    <section class="ending">
-        <div class="ending-content">
-            <p class="ending-message">감사합니다</p>
-            <p class="ending-subtext">특별한 날에 함께해주셔서 감사드립니다</p>
-        </div>
-    </section>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
