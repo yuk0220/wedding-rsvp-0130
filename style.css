@@ -1,0 +1,654 @@
+/* ================================================
+   wedding-rsvp-0130 | Main Styles
+   ================================================ */
+
+@import './tokens.css';
+
+/* hidden attribute 보호 — CSS display가 덮어쓰지 않도록 */
+[hidden] { display: none !important; }
+
+/* 공통 섹션 아이콘 */
+.section-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-text-primary);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 48px 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+p { margin: 0; }
+
+/* --- Layout ----------------------------------- */
+
+#wedding-invitation {
+  width: 402px;
+  max-width: 100%;
+  background: var(--color-bg-base);
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* ================================================
+   HERO
+   ================================================ */
+
+.section-hero {
+  position: relative;
+  width: 402px;
+  height: 900px;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: absolute;
+  left: 59px;
+  top: 60px;
+  width: 283.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  text-align: center;
+}
+
+.hero-title {
+  color: var(--color-text-black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-feature-settings: var(--font-feature-off);
+  width: 249px;
+}
+
+.hero-subtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.hero-date {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero-location {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* ================================================
+   Envelope Animation — 3 state crossfade
+   ================================================ */
+
+.hero-envelope {
+  position: relative;
+  width: 283.5px;
+  transform: scale(1.21);
+  transform-origin: center top;
+}
+
+/* 3개 이미지 모두 같은 위치에 겹침 */
+.env-state {
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity 0.15s ease;
+}
+
+/* 첫 번째 이미지는 흐름에서 높이 확보 */
+.env-state--closed {
+  position: relative;
+  opacity: 1;
+}
+
+/* OPEN 상태 */
+.envelope--open .env-state--closed  { opacity: 0; }
+.envelope--open .env-state--open    { opacity: 1; }
+.envelope--open .env-state--reveal  { opacity: 0; }
+
+/* REVEAL 상태 */
+.envelope--reveal .env-state--closed { opacity: 0; }
+.envelope--reveal .env-state--open   { opacity: 0; }
+.envelope--reveal .env-state--reveal { opacity: 1; }
+
+/* ================================================
+   INTRO
+   ================================================ */
+
+.section-intro {
+  width: 402px;
+  height: 560px;
+  position: relative;
+}
+
+.intro-message {
+  position: absolute;
+  left: 95.92px;
+  top: 34px;
+  width: 213px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.intro-icon {
+  font-size: 24px;
+  color: var(--color-text-accent);
+}
+
+.couple-card {
+  position: absolute;
+  left: 27px;
+  top: 178px;
+  width: 350.85px;
+  height: 348.53px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.couple-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ================================================
+   DATE
+   ================================================ */
+
+.section-date {
+  width: 402px;
+  height: 600px;
+  position: relative;
+}
+
+.date-message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 69px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.date-icon {
+  font-size: 24px;
+}
+
+.date-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.date-highlight {
+  color: var(--color-text-accent) !important;
+  font-weight: 700;
+}
+
+.calendar-card {
+  position: absolute;
+  left: 61px;
+  top: 297px;
+  width: 280px;
+  height: 234.62px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transform: scale(1.32);
+  transform-origin: center top;
+}
+
+.calendar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ================================================
+   LOCATION
+   ================================================ */
+
+.section-location {
+  width: 402px;
+  height: 800px;
+  position: relative;
+}
+
+.location-contents {
+  position: absolute;
+  left: 41px;
+  top: 39px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.location-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.location-icon {
+  font-size: 24px;
+}
+
+.map-card {
+  width: 100%;
+  aspect-ratio: 252 / 165;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-default);
+  overflow: hidden;
+}
+
+.map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.venue-info {
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.transport-list {
+  position: absolute;
+  left: 61.5px;
+  top: 512.52px;
+  width: 279px;
+  background: var(--color-bg-layer);
+  border-radius: 10px;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.transport-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  text-align: center;
+}
+
+.transport-item .t-b3 {
+  color: var(--color-text-primary);
+}
+
+.transport-item .t-b4 {
+  color: var(--color-text-secondary);
+}
+
+.transport-divider {
+  border: none;
+  border-top: 0.5px solid var(--color-border-default);
+}
+
+/* ================================================
+   MENU
+   ================================================ */
+
+.section-menu {
+  width: 402px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  padding: var(--space-4);
+}
+
+.menu-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.menu-icon {
+  font-size: 24px;
+}
+
+.menu-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.menu-img {
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+}
+
+.menu-description {
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+/* ================================================
+   GALLERY
+   ================================================ */
+
+.section-gallery {
+  width: 402px;
+  height: 620px;
+  overflow: hidden;
+}
+
+.gallery-thumbnail-list {
+  width: 100%;
+  height: 428px;
+  margin-top: 50px;
+  overflow: hidden;
+  background: var(--color-neutral-300);
+}
+
+.gallery-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-viewer {
+  display: flex;
+  gap: var(--space-2);
+  padding: 0 var(--space-2);
+  margin-top: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.gallery-viewer::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-thumb {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+  background: var(--color-neutral-300);
+}
+
+.gallery-thumb.active {
+  border-color: var(--color-border-strong);
+}
+
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ================================================
+   ACCOUNT
+   ================================================ */
+
+.section-account {
+  width: 402px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 82px;
+  gap: var(--space-5);
+}
+
+.account-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 265px;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.account-icon {
+  font-size: 24px;
+}
+
+.account-description {
+  color: var(--color-text-primary);
+}
+
+.account-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 320px;
+}
+
+.account-trigger {
+  width: 100%;
+  background: var(--color-envelope-dark);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  color: var(--color-text-primary);
+  transition: background 0.2s;
+}
+
+.account-trigger:hover {
+  background: var(--color-envelope-light);
+}
+
+.chevron-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s;
+  opacity: 0.5;
+}
+
+.account-trigger[aria-expanded="true"] .chevron-icon {
+  transform: rotate(180deg);
+}
+
+.account-panel {
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-text-primary);
+}
+
+.copy-btn {
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-text-secondary);
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.copy-btn:hover {
+  background: var(--color-neutral-300);
+}
+
+/* ================================================
+   FOOTER
+   ================================================ */
+
+.section-footer {
+  width: 402px;
+  height: 536px;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.footer-content {
+  position: absolute;
+  top: 48px;
+  left: 115px;
+  width: 190px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.footer-graphic {
+  width: 48px;
+  height: auto;
+}
+
+.footer-message {
+  color: var(--color-text-primary);
+}
+
+.footer-copyright {
+  position: absolute;
+  bottom: 26px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+/* ================================================
+   Scroll Reveal
+   ================================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal--delay-1 {
+  transition-delay: 0.15s;
+}
+
+.reveal--delay-2 {
+  transition-delay: 0.3s;
+}
+
+/* 이미지는 살짝 scale도 같이 */
+.couple-card.reveal,
+.calendar-card.reveal,
+.gallery-thumbnail-list.reveal {
+  transform: translateY(20px) scale(0.98);
+}
+
+.couple-card.revealed,
+.calendar-card.revealed,
+.gallery-thumbnail-list.revealed {
+  transform: translateY(0) scale(1);
+}
+
+/* 아이콘은 위에서 내려오게 */
+.section-icon {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.reveal.revealed .section-icon {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}

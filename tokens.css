@@ -1,0 +1,223 @@
+/* ================================================
+   wedding-rsvp-0130 | Design Tokens
+   ================================================
+   사용법: style.css 최상단에 @import './tokens.css';
+   ================================================ */
+
+
+/* --- Google Fonts Import ----------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Boldonse&family=Urbanist:wght@400;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+
+/* --- Design Tokens ----------------------------- */
+
+:root {
+
+  /* =======================
+     COLOR
+     ======================= */
+
+  /* Background */
+  --color-bg-base:           #F2F2F2;
+  --color-bg-layer:          rgba(255, 255, 255, 0.70);
+  --color-bg-white:          #FFFFFF;
+
+  /* Text */
+  --color-text-primary:      #2D3037;
+  --color-text-black:        #000000;
+  --color-text-secondary:    #B0B4B8;
+  --color-text-white:        #FFFFFF;
+  --color-text-white-70:     rgba(255, 255, 255, 0.70);
+  --color-text-accent:       #9045FF;
+
+  /* Icon */
+  --color-icon-default:      #B0B4B8;
+  --color-icon-muted:        #6F767E;
+  --color-icon-subtle:       rgba(0, 0, 0, 0.12);
+
+  /* Border / Divider */
+  --color-border-subtle:     rgba(0, 0, 0, 0.04);
+  --color-border-default:    rgba(0, 0, 0, 0.08);
+  --color-border-medium:     rgba(0, 0, 0, 0.12);
+  --color-border-strong:     rgba(0, 0, 0, 0.24);
+
+  /* Envelope */
+  --color-envelope-light:    #FFF5B5;
+  --color-envelope-dark:     #F8F1C8;
+
+  /* Neutral */
+  --color-neutral-300:       #D9D9D9;
+
+
+  /* =======================
+     TYPOGRAPHY -- Font Family
+     ======================= */
+
+  --font-display:            'Boldonse', cursive;
+  --font-en:                 'Urbanist', sans-serif;
+  --font-ko:                 'Pretendard', sans-serif;
+  --font-feature-off:        'liga' off, 'clig' off;
+
+
+  /* =======================
+     TYPOGRAPHY -- Scale
+     ======================= */
+
+  /* [EN] Display 1 - Boldonse 48 / Hero */
+  --text-d1-family:          var(--font-display);
+  --text-d1-size:            48px;
+  --text-d1-weight:          400;
+  --text-d1-line-height:     120%;
+  --text-d1-spacing:         -3px;
+
+  /* [EN] Display 2 - Urbanist 24 Bold */
+  --text-d2-family:          var(--font-en);
+  --text-d2-size:            24px;
+  --text-d2-weight:          700;
+  --text-d2-line-height:     120%;
+  --text-d2-spacing:         -0.72px;
+
+  /* [EN] Display 3 - Urbanist 16 */
+  --text-d3-family:          var(--font-en);
+  --text-d3-size:            16px;
+  --text-d3-weight:          400;
+  --text-d3-line-height:     120%;
+  --text-d3-spacing:         -0.16px;
+
+  /* [KO] Body 1 - Pretendard 20 SemiBold */
+  --text-b1-family:          var(--font-ko);
+  --text-b1-size:            20px;
+  --text-b1-weight:          600;
+  --text-b1-line-height:     150%;
+  --text-b1-spacing:         -1px;
+
+  /* [KO] Body 2 - Pretendard 16 SemiBold */
+  --text-b2-family:          var(--font-ko);
+  --text-b2-size:            16px;
+  --text-b2-weight:          600;
+  --text-b2-line-height:     150%;
+  --text-b2-spacing:         -0.16px;
+
+  /* [KO] Body 3 - Pretendard 14 Bold */
+  --text-b3-family:          var(--font-ko);
+  --text-b3-size:            14px;
+  --text-b3-weight:          700;
+  --text-b3-line-height:     150%;
+  --text-b3-spacing:         -0.14px;
+
+  /* [KO] Body 4 - Pretendard 12 Medium */
+  --text-b4-family:          var(--font-ko);
+  --text-b4-size:            12px;
+  --text-b4-weight:          500;
+  --text-b4-line-height:     150%;
+  --text-b4-spacing:         -0.12px;
+
+  /* [EN] Caption - Urbanist 10 SemiBold Uppercase */
+  --text-cap-family:         var(--font-en);
+  --text-cap-size:           10px;
+  --text-cap-weight:         600;
+  --text-cap-line-height:    120%;
+  --text-cap-spacing:        -0.1px;
+
+
+  /* =======================
+     SPACING
+     ======================= */
+
+  --space-1:    4px;
+  --space-2:   12px;
+  --space-3:   16px;
+  --space-4:   24px;
+  --space-5:   48px;
+  --space-6:   72px;
+
+
+  /* =======================
+     BORDER RADIUS
+     ======================= */
+
+  --radius-sm:   8px;
+  --radius-md:  12px;
+
+}
+
+
+/* ================================================
+   Typography Utility Classes
+   사용: <h1 class="t-d1">Better Together</h1>
+   ================================================ */
+
+.t-d1 {
+  font-family:           var(--text-d1-family);
+  font-size:             var(--text-d1-size);
+  font-weight:           var(--text-d1-weight);
+  line-height:           var(--text-d1-line-height);
+  letter-spacing:        var(--text-d1-spacing);
+  font-feature-settings: var(--font-feature-off);
+}
+
+.t-d2 {
+  font-family:           var(--text-d2-family);
+  font-size:             var(--text-d2-size);
+  font-weight:           var(--text-d2-weight);
+  line-height:           var(--text-d2-line-height);
+  letter-spacing:        var(--text-d2-spacing);
+  font-feature-settings: var(--font-feature-off);
+}
+
+.t-d3 {
+  font-family:           var(--text-d3-family);
+  font-size:             var(--text-d3-size);
+  font-weight:           var(--text-d3-weight);
+  line-height:           var(--text-d3-line-height);
+  letter-spacing:        var(--text-d3-spacing);
+  font-feature-settings: var(--font-feature-off);
+}
+
+.t-b1 {
+  font-family:           var(--text-b1-family);
+  font-size:             var(--text-b1-size);
+  font-weight:           var(--text-b1-weight);
+  line-height:           var(--text-b1-line-height);
+  letter-spacing:        var(--text-b1-spacing);
+  font-feature-settings: var(--font-feature-off);
+}
+
+.t-b2 {
+  font-family:           var(--text-b2-family);
+  font-size:             var(--text-b2-size);
+  font-weight:           var(--text-b2-weight);
+  line-height:           var(--text-b2-line-height);
+  letter-spacing:        var(--text-b2-spacing);
+  font-feature-settings: var(--font-feature-off);
+}
+
+.t-b3 {
+  font-family:           var(--text-b3-family);
+  font-size:             var(--text-b3-size);
+  font-weight:           var(--text-b3-weight);
+  line-height:           var(--text-b3-line-height);
+  letter-spacing:        var(--text-b3-spacing);
+  font-feature-settings: var(--font-feature-off);
+}
+
+.t-b4 {
+  font-family:           var(--text-b4-family);
+  font-size:             var(--text-b4-size);
+  font-weight:           var(--text-b4-weight);
+  line-height:           var(--text-b4-line-height);
+  letter-spacing:        var(--text-b4-spacing);
+  font-feature-settings: var(--font-feature-off);
+}
+
+.t-cap {
+  font-family:           var(--text-cap-family);
+  font-size:             var(--text-cap-size);
+  font-weight:           var(--text-cap-weight);
+  line-height:           var(--text-cap-line-height);
+  letter-spacing:        var(--text-cap-spacing);
+  font-feature-settings: var(--font-feature-off);
+  text-transform:        uppercase;
+}
