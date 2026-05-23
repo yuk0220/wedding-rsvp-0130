@@ -45,17 +45,17 @@
 ## 4. 정보 구조
 
 ```plaintext
-인트로
-→ 히어로
-→ 두 사람 소개
-→ 초대 메시지
-→ 웨딩 정보
-→ 갤러리
-→ 위치
-→ RSVP
-→ 계좌
-→ 엔딩
+Hero
+→ Intro (커플 사진 + 초대 메시지)
+→ Date (날짜 + 달력 카드)
+→ Location (지도 + 교통 안내)
+→ Menu (코스 요리 미리보기)
+→ Gallery (메인 사진 + 썸네일)
+→ Account (계좌 accordion)
+→ Footer
 ```
+
+> RSVP는 MVP에서 제외. 별도 채널(카카오톡 등)로 대체.
 
 ---
 
@@ -152,12 +152,23 @@
 ### Stack
 
 - HTML  
-- CSS  
-- Vanilla JS
+- CSS (`tokens.css` + `style.css`)  
+- Vanilla JS (`main.js`)
+- Vercel (자동 배포)
+
+### 파일 구조
+
+```
+index.html
+tokens.css     ← 디자인 토큰 (색상, 타이포, 간격)
+style.css      ← 섹션별 레이아웃 & 컴포넌트
+main.js        ← 인터랙션 (reveal, envelope, gallery, account)
+assets/        ← 이미지, SVG 아이콘
+```
 
 ### 구현 원칙
 
 - Mobile-first  
-- 디자이너 수정 가능한 구조  
+- 디자이너 수정 가능한 구조 (tokens.css에서 토큰 관리)
 - semantic HTML 우선  
 - 최소 라이브러리 사용
