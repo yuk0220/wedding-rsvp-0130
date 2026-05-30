@@ -228,13 +228,14 @@ p { margin: 0; }
 }
 
 .date-highlight.pulse {
-  animation: datePulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: datePulse 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 @keyframes datePulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.08); }
-  100% { transform: scale(1); }
+  0%   { transform: scale(1);    color: inherit; }
+  30%  { transform: scale(1.18); letter-spacing: 0.04em; }
+  60%  { transform: scale(1.12); }
+  100% { transform: scale(1.06); }
 }
 
 .calendar-card {
@@ -245,6 +246,7 @@ p { margin: 0; }
   height: 234.62px;
   border-radius: var(--radius-md);
   overflow: hidden;
+  transform: scale(1.6); 
   transform-origin: center top;
 }
 
@@ -286,10 +288,11 @@ p { margin: 0; }
 
 .map-card {
   width: 100%;
-  aspect-ratio: 252 / 165;
+  height: 200px;        /* aspect-ratio 대신 고정 높이 */
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border-default);
   overflow: hidden;
+  cursor: pointer;
 }
 
 .map-img {

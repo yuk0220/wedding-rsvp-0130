@@ -44,15 +44,12 @@ function updateEnvelope() {
   const rawRevealT = clamp((y - REVEAL_START) / (REVEAL_END - REVEAL_START), 0, 1);
   const revealT    = bounceOut(rawRevealT);
 
-  // CLOSED → OPEN 스냅
   envClosed.style.opacity = rawOpenT < 0.5 ? '1' : '0';
   envOpen.style.opacity   = rawOpenT < 0.5 ? '0' : '1';
 
-  // LETTER bounce 등장
   envLetter.style.opacity   = rawRevealT > 0 ? '1' : '0';
   envLetter.style.transform = `translateY(${(1 - revealT) * 180}px)`;
 
-  // envelope 살짝 내려가기
   envelope.style.transform = rawRevealT > 0
     ? `translateY(${revealT * 40}px)`
     : 'translateY(0)';
@@ -85,8 +82,9 @@ const dateHighlight = document.querySelector('.date-highlight');
 const dateObserver  = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      setTimeout(() => dateHighlight.classList.add('pulse'), 400);
-      dateObserver.unobserve(entry.target);
+      dateHighlight.classList.remove('pulse');
+      void dateHighlight.offsetWidth;
+      setTimeout(() => dateHighlight.classList.add('pulse'), 100);
     }
   });
 }, { threshold: 0.5 });
@@ -117,5 +115,31 @@ thumbs.forEach(thumb => {
     thumb.classList.add('active');
     const src = thumb.querySelector('img')?.src;
     if (mainImg && src) mainImg.src = src;
+  });
+});
+
+/* --- Kakao Map --------------------------------- */
+
+kakao.maps.load(() => {
+  const container = document.getElementById('kakao-map');
+  const options = {
+    center: new kakao.maps.LatLng(37.4569, 127.1454),
+    level: 4,
+  };
+  const map = new kakao.maps.Map(container, options);
+
+  const marker = new kakao.maps.Marker({
+    position: new kakao.maps.LatLng(37.4569, 127.1454),
+    map,
+  });
+
+  const infowindow = new kakao.maps.InfoWindow({
+    content: '<div style="padding:6px 10px;font-size:13px;font-weight:600;">밀리토피아호텔</div>',
+  });
+  infowindow.open(map, marker);
+
+  container.style.cursor = 'pointer';
+  kakao.maps.event.addListener(map, 'click', () => {
+    window.open('https://naver.me/xVBx7DtV', '_blank');
   });
 });
