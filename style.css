@@ -4,10 +4,8 @@
 
 @import './tokens.css';
 
-/* hidden attribute 보호 — CSS display가 덮어쓰지 않도록 */
 [hidden] { display: none !important; }
 
-/* 공통 섹션 아이콘 */
 .section-icon {
   width: 24px;
   height: 24px;
@@ -31,7 +29,7 @@ body {
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  padding: 48px 0;
+  padding: 0;
 }
 
 img {
@@ -49,17 +47,13 @@ button {
 
 p { margin: 0; }
 
-/* --- Layout ----------------------------------- */
-
 #wedding-invitation {
   width: 402px;
   max-width: 100%;
   background: var(--color-bg-base);
   overflow: hidden;
-  border-radius: 16px;
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.08),
-    0 1px 4px rgba(0, 0, 0, 0.04);
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* ================================================
@@ -69,22 +63,24 @@ p { margin: 0; }
 .section-hero {
   position: relative;
   width: 402px;
-  height: 900px;
+  height: 860px;
   overflow: hidden;
 }
 
 .hero-content {
   position: absolute;
-  left: 59px;
+  left: 55px;
   top: 60px;
-  width: 283.5px;
+  width: 292px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-5);
+  gap: 64px;
 }
 
 .hero-copy {
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -123,43 +119,37 @@ p { margin: 0; }
 }
 
 /* ================================================
-   Envelope Animation — 3 state crossfade
+   Envelope — CLOSED → OPEN → LETTER
    ================================================ */
 
 .hero-envelope {
   position: relative;
-  width: 283.5px;
-  transform: scale(1.21);
-  transform-origin: center top;
+  width: 292px;
+  height: 279px;
 }
 
-/* 3개 이미지 모두 같은 위치에 겹침 */
-.env-state {
-  display: block;
-  width: 100%;
+.env-closed,
+.env-open {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
-  opacity: 0;
+  width: 100%;
+  height: auto;
   will-change: opacity;
-  transition: opacity 0.15s ease;
 }
 
-/* 첫 번째 이미지는 흐름에서 높이 확보 */
-.env-state--closed {
-  position: relative;
-  opacity: 1;
+.env-closed { z-index: 1; opacity: 1; }
+.env-open   { z-index: 2; opacity: 0; }
+
+.env-letter {
+  position: absolute;
+  width: 269px;
+  left: 11.5px;
+  bottom: 60px;
+  z-index: 3;
+  opacity: 0;
+  will-change: transform, opacity;
 }
-
-/* OPEN 상태 */
-.envelope--open .env-state--closed  { opacity: 0; }
-.envelope--open .env-state--open    { opacity: 1; }
-.envelope--open .env-state--reveal  { opacity: 0; }
-
-/* REVEAL 상태 */
-.envelope--reveal .env-state--closed { opacity: 0; }
-.envelope--reveal .env-state--open   { opacity: 0; }
-.envelope--reveal .env-state--reveal { opacity: 1; }
 
 /* ================================================
    INTRO
@@ -182,11 +172,6 @@ p { margin: 0; }
   gap: var(--space-2);
   text-align: center;
   color: var(--color-text-primary);
-}
-
-.intro-icon {
-  font-size: 24px;
-  color: var(--color-text-accent);
 }
 
 .couple-card {
@@ -227,10 +212,6 @@ p { margin: 0; }
   text-align: center;
 }
 
-.date-icon {
-  font-size: 24px;
-}
-
 .date-label {
   display: flex;
   flex-direction: column;
@@ -243,6 +224,17 @@ p { margin: 0; }
 .date-highlight {
   color: var(--color-text-accent) !important;
   font-weight: 700;
+  display: inline-block;
+}
+
+.date-highlight.pulse {
+  animation: datePulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes datePulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
 }
 
 .calendar-card {
@@ -253,7 +245,6 @@ p { margin: 0; }
   height: 234.62px;
   border-radius: var(--radius-md);
   overflow: hidden;
-  transform: scale(1.32);
   transform-origin: center top;
 }
 
@@ -291,10 +282,6 @@ p { margin: 0; }
   gap: var(--space-2);
   text-align: center;
   color: var(--color-text-primary);
-}
-
-.location-icon {
-  font-size: 24px;
 }
 
 .map-card {
@@ -337,13 +324,8 @@ p { margin: 0; }
   text-align: center;
 }
 
-.transport-item .t-b3 {
-  color: var(--color-text-primary);
-}
-
-.transport-item .t-b4 {
-  color: var(--color-text-secondary);
-}
+.transport-item .t-b3 { color: var(--color-text-primary); }
+.transport-item .t-b4 { color: var(--color-text-secondary); }
 
 .transport-divider {
   border: none;
@@ -372,10 +354,6 @@ p { margin: 0; }
   gap: var(--space-2);
   text-align: center;
   color: var(--color-text-primary);
-}
-
-.menu-icon {
-  font-size: 24px;
 }
 
 .menu-preview {
@@ -428,9 +406,7 @@ p { margin: 0; }
   scrollbar-width: none;
 }
 
-.gallery-viewer::-webkit-scrollbar {
-  display: none;
-}
+.gallery-viewer::-webkit-scrollbar { display: none; }
 
 .gallery-thumb {
   flex-shrink: 0;
@@ -477,13 +453,7 @@ p { margin: 0; }
   color: var(--color-text-primary);
 }
 
-.account-icon {
-  font-size: 24px;
-}
-
-.account-description {
-  color: var(--color-text-primary);
-}
+.account-description { color: var(--color-text-primary); }
 
 .account-accordion {
   display: flex;
@@ -506,9 +476,7 @@ p { margin: 0; }
   transition: background 0.2s;
 }
 
-.account-trigger:hover {
-  background: var(--color-envelope-light);
-}
+.account-trigger:hover { background: var(--color-envelope-light); }
 
 .chevron-icon {
   width: 20px;
@@ -542,9 +510,7 @@ p { margin: 0; }
   flex-shrink: 0;
 }
 
-.copy-btn:hover {
-  background: var(--color-neutral-300);
-}
+.copy-btn:hover { background: var(--color-neutral-300); }
 
 /* ================================================
    FOOTER
@@ -581,14 +547,8 @@ p { margin: 0; }
   text-align: center;
 }
 
-.footer-graphic {
-  width: 48px;
-  height: auto;
-}
-
-.footer-message {
-  color: var(--color-text-primary);
-}
+.footer-graphic { width: 48px; height: auto; }
+.footer-message { color: var(--color-text-primary); }
 
 .footer-copyright {
   position: absolute;
@@ -617,15 +577,9 @@ p { margin: 0; }
   transform: translateY(0);
 }
 
-.reveal--delay-1 {
-  transition-delay: 0.15s;
-}
+.reveal--delay-1 { transition-delay: 0.15s; }
+.reveal--delay-2 { transition-delay: 0.3s; }
 
-.reveal--delay-2 {
-  transition-delay: 0.3s;
-}
-
-/* 이미지는 살짝 scale도 같이 */
 .couple-card.reveal,
 .calendar-card.reveal,
 .gallery-thumbnail-list.reveal {
@@ -638,13 +592,10 @@ p { margin: 0; }
   transform: translateY(0) scale(1);
 }
 
-/* 아이콘은 위에서 내려오게 */
 .section-icon {
   opacity: 0;
   transform: translateY(-8px);
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .reveal.revealed .section-icon {

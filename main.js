@@ -11,10 +11,6 @@ const envLetter = envelope.querySelector('.env-letter');
 
 function clamp(v, a, b) { return Math.min(Math.max(v, a), b); }
 
-function easeInOut(t) {
-  return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-}
-
 function bounceOut(t) {
   const c1 = 1.70158;
   const c3 = c1 + 1;
@@ -46,25 +42,19 @@ function updateEnvelope() {
 
   const rawOpenT   = clamp((y - OPEN_START) / (OPEN_END - OPEN_START), 0, 1);
   const rawRevealT = clamp((y - REVEAL_START) / (REVEAL_END - REVEAL_START), 0, 1);
+  const revealT    = bounceOut(rawRevealT);
 
-  const revealT = bounceOut(rawRevealT);
+  // CLOSED → OPEN 스냅
+  envClosed.style.opacity = rawOpenT < 0.5 ? '1' : '0';
+  envOpen.style.opacity   = rawOpenT < 0.5 ? '0' : '1';
 
-  // CLOSED → OPEN 스냅 전환
-  if (rawOpenT < 0.5) {
-    envClosed.style.opacity = '1';
-    envOpen.style.opacity   = '0';
-  } else {
-    envClosed.style.opacity = '0';
-    envOpen.style.opacity   = '1';
-  }
-
-  // LETTER: bouncy pop 등장
+  // LETTER bounce 등장
   envLetter.style.opacity   = rawRevealT > 0 ? '1' : '0';
   envLetter.style.transform = `translateY(${(1 - revealT) * 180}px)`;
 
-  // ENVELOPE 아래로 내려가기
+  // envelope 살짝 내려가기
   envelope.style.transform = rawRevealT > 0
-    ? `translateY(${revealT * 80}px)`
+    ? `translateY(${revealT * 40}px)`
     : 'translateY(0)';
 }
 
@@ -89,26 +79,19 @@ document.querySelectorAll('.reveal').forEach(el => {
   revealObserver.observe(el);
 });
 
-/* --- Intro 카드 등장 --------------------------- */
+/* --- Date pulse -------------------------------- */
 
-const cardObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
+const dateHighlight = document.querySelector('.date-highlight');
+const dateObserver  = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) {
-      // 신부 카드는 0.15s 딜레이
-      const delay = entry.target.classList.contains('card-bride') ? 150 : 0;
-      setTimeout(() => {
-        entry.target.classList.add('card-revealed');
-      }, delay);
-      cardObserver.unobserve(entry.target);
+      setTimeout(() => dateHighlight.classList.add('pulse'), 400);
+      dateObserver.unobserve(entry.target);
     }
   });
-}, {
-  threshold: 0.2,
-});
+}, { threshold: 0.5 });
 
-document.querySelectorAll('.card-wrap').forEach(el => {
-  cardObserver.observe(el);
-});
+if (dateHighlight) dateObserver.observe(dateHighlight);
 
 /* --- Account accordion ------------------------- */
 
