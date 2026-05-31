@@ -4,6 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Better Together — 2027.01.30</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./assets/Favicon.svg" />
+
+  <!-- OG 태그 -->
+  <meta property="og:type"         content="website" />
+  <meta property="og:title"        content="Better Together — 2027.01.30" />
+  <meta property="og:description"  content="이종현 · 육예진의 결혼식에 초대합니다 💌" />
+  <meta property="og:image"        content="https://wedding-rsvp-0130.vercel.app/assets/og-image.jpg" />
+  <meta property="og:url"          content="https://wedding-rsvp-0130.vercel.app" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter/카카오 보조 -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Better Together — 2027.01.30" />
+  <meta name="twitter:description" content="이종현 · 육예진의 결혼식에 초대합니다 💌" />
+  <meta name="twitter:image"       content="https://wedding-rsvp-0130.vercel.app/assets/og-image.jpg" />
+
   <link rel="stylesheet" href="./tokens.css" />
   <link rel="stylesheet" href="./style.css" />
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0578954ce516750877f71ca2cdcff579"></script>
@@ -32,7 +51,7 @@
         </div>
         <div class="hero-envelope" id="envelope">
           <img src="./assets/envelope-closed.png" class="env-closed" alt="" aria-hidden="true" />
-          <img src="./assets/envelope-open.png"   class="env-open"   alt="" aria-hidden="true" />
+          <img src="./assets/envelope-open.svg"   class="env-open"   alt="" aria-hidden="true" />
           <img src="./assets/envelope-letter.svg" class="env-letter" alt="" aria-hidden="true" />
         </div>
       </div>
@@ -113,12 +132,27 @@
           될 수 있길 바라며
         </p>
       </div>
-      <div class="menu-preview reveal reveal--delay-1">
-        <img src="./assets/menu-bread.jpg" alt="식전빵" class="menu-img" />
-        <img src="./assets/menu-soup.jpg" alt="양송이 스프" class="menu-img" />
-        <img src="./assets/menu-salad.jpg" alt="연어샐러드" class="menu-img" />
+      <div class="menu-carousel-wrap">
+        <div class="menu-carousel" id="menuCarousel">
+          <div class="menu-carousel-track">
+            <img src="./assets/Menu/menu-bread.png"  alt="식전빵"       class="menu-slide-img" />
+            <img src="./assets/Menu/menu-salad.png"  alt="샐러드"       class="menu-slide-img" />
+            <img src="./assets/Menu/menu-soup.png"   alt="양송이스프"   class="menu-slide-img" />
+            <img src="./assets/Menu/menu-salmon.png" alt="연어"         class="menu-slide-img" />
+            <img src="./assets/Menu/menu-steak.png"  alt="등심스테이크" class="menu-slide-img" />
+            <img src="./assets/Menu/menu-wine.png"   alt="와인"         class="menu-slide-img" />
+            <img src="./assets/Menu/menu-desert.png" alt="디저트"       class="menu-slide-img" />
+            <img src="./assets/Menu/menu-bread.png"  alt="" class="menu-slide-img" aria-hidden="true" />
+            <img src="./assets/Menu/menu-salad.png"  alt="" class="menu-slide-img" aria-hidden="true" />
+            <img src="./assets/Menu/menu-soup.png"   alt="" class="menu-slide-img" aria-hidden="true" />
+            <img src="./assets/Menu/menu-salmon.png" alt="" class="menu-slide-img" aria-hidden="true" />
+            <img src="./assets/Menu/menu-steak.png"  alt="" class="menu-slide-img" aria-hidden="true" />
+            <img src="./assets/Menu/menu-wine.png"   alt="" class="menu-slide-img" aria-hidden="true" />
+            <img src="./assets/Menu/menu-desert.png" alt="" class="menu-slide-img" aria-hidden="true" />
+          </div>
+        </div>
       </div>
-      <p class="t-b2 menu-description reveal reveal--delay-2">
+      <p class="t-b2 menu-description reveal reveal--delay-1">
         코스요리가 좌석에 제공되는<br />
         동시예식으로 진행됩니다.<br />
         좌석 확인 후 착석 부탁드립니다.
@@ -127,15 +161,19 @@
 
     <!-- GALLERY -->
     <section id="gallery" class="section-gallery">
-      <div class="gallery-thumbnail-list reveal">
-        <img src="./assets/gallery-main.jpg" alt="웨딩 사진" class="gallery-main-img" />
+      <div class="gallery-thumbnail-list reveal" id="galleryMain">
+        <img src="./assets/photo1.jpg" alt="사진 1" class="gallery-main-img active" data-index="0" />
+        <img src="./assets/photo2.jpg" alt="사진 2" class="gallery-main-img" data-index="1" />
+        <img src="./assets/photo3.jpg" alt="사진 3" class="gallery-main-img" data-index="2" />
+        <img src="./assets/photo4.jpg" alt="사진 4" class="gallery-main-img" data-index="3" />
+        <img src="./assets/photo5.jpg" alt="사진 5" class="gallery-main-img" data-index="4" />
       </div>
       <div class="gallery-viewer reveal reveal--delay-1" role="list" aria-label="갤러리 썸네일">
-        <div class="gallery-thumb active" role="listitem"><img src="./assets/photo1.jpg" alt="사진 1" /></div>
-        <div class="gallery-thumb" role="listitem"><img src="./assets/photo2.jpg" alt="사진 2" /></div>
-        <div class="gallery-thumb" role="listitem"><img src="./assets/photo3.jpg" alt="사진 3" /></div>
-        <div class="gallery-thumb" role="listitem"><img src="./assets/photo4.jpg" alt="사진 4" /></div>
-        <div class="gallery-thumb" role="listitem"><img src="./assets/photo5.jpg" alt="사진 5" /></div>
+        <div class="gallery-thumb active" role="listitem" data-index="0"><img src="./assets/photo1.jpg" alt="사진 1" /></div>
+        <div class="gallery-thumb" role="listitem" data-index="1"><img src="./assets/photo2.jpg" alt="사진 2" /></div>
+        <div class="gallery-thumb" role="listitem" data-index="2"><img src="./assets/photo3.jpg" alt="사진 3" /></div>
+        <div class="gallery-thumb" role="listitem" data-index="3"><img src="./assets/photo4.jpg" alt="사진 4" /></div>
+        <div class="gallery-thumb" role="listitem" data-index="4"><img src="./assets/photo5.jpg" alt="사진 5" /></div>
       </div>
     </section>
 
@@ -150,22 +188,49 @@
         </p>
       </div>
       <div class="account-accordion reveal reveal--delay-1">
-        <button class="account-trigger t-b2" aria-expanded="false">
-          신랑측 계좌번호
-          <img src="./assets/chevron_down.svg" alt="" class="chevron-icon" aria-hidden="true" />
-        </button>
-        <div class="account-panel" hidden>
-          <p class="t-b4">은행명 계좌번호 이름</p>
-          <button class="copy-btn t-cap" onclick="navigator.clipboard.writeText('')">복사</button>
+
+        <!-- 신랑측 -->
+        <div class="account-item">
+          <button class="account-trigger t-b2" aria-expanded="false">
+            신랑측 계좌번호
+            <img src="./assets/chevron_down.svg" alt="" class="chevron-icon" aria-hidden="true" />
+          </button>
+          <div class="account-panel">
+            <div class="account-panel-inner">
+              <span class="t-b4 account-name"><b>신랑</b> 이종현</span>
+              <span class="t-b4 account-number">토스뱅크 1000-2692-5935</span>
+              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935">복사</button>
+            </div>
+            <div class="account-divider"></div>
+            <div class="account-panel-inner">
+              <span class="t-b4 account-name"><b>혼주</b> 이○○</span>
+              <span class="t-b4 account-number">토스뱅크 1000-2692-5935</span>
+              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935">복사</button>
+            </div>
+          </div>
         </div>
-        <button class="account-trigger t-b2" aria-expanded="false">
-          신부측 계좌번호
-          <img src="./assets/chevron_down.svg" alt="" class="chevron-icon" aria-hidden="true" />
-        </button>
-        <div class="account-panel" hidden>
-          <p class="t-b4">은행명 계좌번호 이름</p>
-          <button class="copy-btn t-cap" onclick="navigator.clipboard.writeText('')">복사</button>
+
+        <!-- 신부측 -->
+        <div class="account-item">
+          <button class="account-trigger t-b2" aria-expanded="false">
+            신부측 계좌번호
+            <img src="./assets/chevron_down.svg" alt="" class="chevron-icon" aria-hidden="true" />
+          </button>
+          <div class="account-panel">
+            <div class="account-panel-inner">
+              <span class="t-b4 account-name"><b>신부</b> 육예진</span>
+              <span class="t-b4 account-number">토스뱅크 1000-2692-5935</span>
+              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935">복사</button>
+            </div>
+            <div class="account-divider"></div>
+            <div class="account-panel-inner">
+              <span class="t-b4 account-name"><b>혼주</b> 육○○</span>
+              <span class="t-b4 account-number">토스뱅크 1000-2692-5935</span>
+              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935">복사</button>
+            </div>
+          </div>
         </div>
+
       </div>
     </section>
 
@@ -186,6 +251,10 @@
     </footer>
 
   </main>
+
+  <!-- 토스트 -->
+  <div class="toast" id="toast">계좌번호가 복사되었습니다 ✓</div>
+
   <script src="./main.js"></script>
 </body>
 </html>
