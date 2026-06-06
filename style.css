@@ -1146,6 +1146,377 @@ p { margin: 0; }
 }
 
 /* ================================================
+   RSVP MODAL
+   ================================================ */
+
+.rsvp-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding-bottom: 24px;
+}
+
+.rsvp-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.rsvp-modal {
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+  width: calc(100% - 48px);
+  max-width: 322px;
+  overflow: hidden;
+  transform: translateY(24px);
+  transition: transform 0.35s ease;
+}
+
+.rsvp-overlay.active .rsvp-modal {
+  transform: translateY(0);
+}
+
+/* view 전환 */
+.rsvp-view {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
+  transition: opacity 0.2s ease, transform 0.25s ease;
+}
+
+.rsvp-view--hidden {
+  display: none;
+}
+
+/* header */
+.rsvp-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.rsvp-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.rsvp-title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.rsvp-title {
+  color: var(--color-text-primary);
+  text-align: center;
+  margin: 0;
+}
+
+.rsvp-subtitle {
+  color: rgba(45, 48, 55, 0.5);
+  text-align: center;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* info card */
+.rsvp-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rsvp-info-card {
+  background: #FFF7D4;
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.rsvp-couple {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.rsvp-couple-name {
+  font-family: var(--font-ko);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.16px;
+  white-space: nowrap;
+}
+
+.rsvp-couple-name strong {
+  font-weight: 700;
+}
+
+.rsvp-graphic {
+  width: 32px;
+  flex-shrink: 0;
+}
+
+.rsvp-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(45, 48, 55, 0.1);
+}
+
+.rsvp-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.rsvp-details p {
+  margin: 0;
+  color: rgba(45, 48, 55, 0.5);
+  letter-spacing: -0.28px;
+}
+
+/* 버튼 */
+.rsvp-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rsvp-btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 54px;
+  background: #191B1F;
+  color: #fff;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-ko);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  transition: opacity 0.15s ease;
+}
+
+.rsvp-btn-primary:hover {
+  opacity: 0.85;
+}
+
+.rsvp-btn-dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.25);
+  font-family: var(--font-ko);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  transition: color 0.15s ease;
+}
+
+.rsvp-btn-dismiss:hover {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+/* ---- 폼 (view 2) -------------------------------- */
+
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rsvp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rsvp-field-label {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* 세그먼트 버튼 */
+.rsvp-segment {
+  display: flex;
+  height: 40px;
+}
+
+.rsvp-segment-btn {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #79747E;
+  font-family: var(--font-ko);
+  font-size: 14px;
+  font-weight: 500;
+  color: #1D1B20;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  letter-spacing: 0.1px;
+}
+
+.rsvp-segment-btn:first-child {
+  border-radius: 8px 0 0 8px;
+  margin-right: -1px;
+}
+
+.rsvp-segment-btn:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.rsvp-segment-btn.active {
+  background: #FFF3A5;
+  color: #4A4459;
+  z-index: 1;
+  position: relative;
+}
+
+/* input */
+.rsvp-input {
+  width: 100%;
+  height: 40px;
+  background: #fff;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-family: var(--font-ko);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.rsvp-input::placeholder {
+  color: #B3B3B3;
+}
+
+.rsvp-input:focus {
+  border-color: #79747E;
+}
+
+/* select */
+.rsvp-select-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.rsvp-select {
+  width: 100%;
+  height: 40px;
+  background: #fff;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 0 36px 0 16px;
+  font-family: var(--font-ko);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+
+.rsvp-select:focus {
+  border-color: #79747E;
+}
+
+.rsvp-select-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  pointer-events: none;
+}
+
+/* 개인정보 동의 */
+.rsvp-privacy {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.rsvp-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.rsvp-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.rsvp-checkbox-box {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border: 1px solid #757575;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.rsvp-checkbox:checked + .rsvp-checkbox-box {
+  background: #191B1F;
+  border-color: #191B1F;
+}
+
+.rsvp-checkbox:checked + .rsvp-checkbox-box::after {
+  content: '';
+  width: 9px;
+  height: 6px;
+  border-left: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: rotate(-45deg) translateY(-1px);
+  display: block;
+}
+
+.rsvp-privacy-text {
+  color: #757575;
+  font-weight: 400;
+}
+
+/* ================================================
    FOOTER
    ================================================ */
 

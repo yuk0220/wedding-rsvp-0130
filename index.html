@@ -266,13 +266,13 @@
             <div class="account-panel-inner">
               <span class="t-b4 account-name"><b>신랑</b> 이종현</span>
               <span class="t-b4 account-number">토스뱅크 1000-2692-5935</span>
-              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935">복사</button>
+              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935" data-account-id="groom_self" data-account-side="groom" data-account-role="groom" data-account-name="이종현">복사</button>
             </div>
             <div class="account-divider"></div>
             <div class="account-panel-inner">
               <span class="t-b4 account-name"><b>혼주</b> 이○○</span>
               <span class="t-b4 account-number">토스뱅크 1000-2692-5935</span>
-              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935">복사</button>
+              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935" data-account-id="groom_parent" data-account-side="groom" data-account-role="parent" data-account-name="이○○">복사</button>
             </div>
           </div>
         </div>
@@ -287,13 +287,13 @@
             <div class="account-panel-inner">
               <span class="t-b4 account-name"><b>신부</b> 육예진</span>
               <span class="t-b4 account-number">토스뱅크 1000-2692-5935</span>
-              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935">복사</button>
+              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935" data-account-id="bride_self" data-account-side="bride" data-account-role="bride" data-account-name="육예진">복사</button>
             </div>
             <div class="account-divider"></div>
             <div class="account-panel-inner">
               <span class="t-b4 account-name"><b>혼주</b> 육○○</span>
               <span class="t-b4 account-number">토스뱅크 1000-2692-5935</span>
-              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935">복사</button>
+              <button class="copy-btn t-cap" data-account="토스뱅크 1000-2692-5935" data-account-id="bride_parent" data-account-side="bride" data-account-role="parent" data-account-name="육○○">복사</button>
             </div>
           </div>
         </div>
@@ -334,6 +334,111 @@
 
   <!-- 토스트 -->
   <div class="toast" id="toast">계좌번호를 복사했습니다.</div>
+
+  <!-- RSVP 모달 -->
+  <div class="rsvp-overlay" id="rsvpOverlay" role="dialog" aria-modal="true" aria-label="참석 의사 체크">
+    <div class="rsvp-modal">
+
+      <!-- VIEW 1: 안내 카드 -->
+      <div class="rsvp-view" id="rsvpView1">
+        <div class="rsvp-header">
+          <button class="rsvp-close" id="rsvpClose" aria-label="닫기">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#2D3037" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div class="rsvp-title-group">
+            <p class="t-b1 rsvp-title">참석 의사 체크</p>
+            <p class="t-b2 rsvp-subtitle">모든 분들을 소중히 모실 수 있도록 전해주세요</p>
+          </div>
+        </div>
+        <div class="rsvp-body">
+          <div class="rsvp-info-card">
+            <div class="rsvp-couple">
+              <span class="rsvp-couple-name"><strong>신랑</strong> 이종현</span>
+              <img src="./assets/graphic2.png" alt="" class="rsvp-graphic" aria-hidden="true" />
+              <span class="rsvp-couple-name"><strong>신부</strong> 육예진</span>
+            </div>
+            <div class="rsvp-divider"></div>
+            <div class="rsvp-details">
+              <p class="t-b4">2027년 1월 30일<br>토요일 오전 11시</p>
+              <p class="t-b4">밀리토피아 바이마린 2층 그랜드볼룸홀</p>
+            </div>
+          </div>
+          <div class="rsvp-actions">
+            <button class="rsvp-btn-primary t-b2" id="rsvpConfirm">참석 여부 알리기</button>
+            <button class="rsvp-btn-dismiss t-b2" id="rsvpDismiss">오늘 하루 보지 않기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: 참석 정보 폼 -->
+      <div class="rsvp-view rsvp-view--hidden" id="rsvpView2">
+        <div class="rsvp-header">
+          <button class="rsvp-close" id="rsvpClose2" aria-label="닫기">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#2D3037" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <p class="t-b1 rsvp-title" style="text-align:center;width:100%;">참석 의사 체크</p>
+        </div>
+
+        <form class="rsvp-form" id="rsvpForm" novalidate>
+          <!-- 참석 여부 -->
+          <div class="rsvp-field">
+            <label class="rsvp-field-label t-b2">참석</label>
+            <div class="rsvp-segment" role="group" aria-label="참석 여부">
+              <button type="button" class="rsvp-segment-btn active" data-group="attend" data-value="참석">참석</button>
+              <button type="button" class="rsvp-segment-btn" data-group="attend" data-value="불참">불참</button>
+            </div>
+          </div>
+
+          <!-- 하객 -->
+          <div class="rsvp-field">
+            <label class="rsvp-field-label t-b2">하객</label>
+            <div class="rsvp-segment" role="group" aria-label="하객 구분">
+              <button type="button" class="rsvp-segment-btn active" data-group="side" data-value="신랑">신랑</button>
+              <button type="button" class="rsvp-segment-btn" data-group="side" data-value="신부">신부</button>
+            </div>
+          </div>
+
+          <!-- 성함 -->
+          <div class="rsvp-field">
+            <label class="rsvp-field-label t-b2" for="rsvpName">성함</label>
+            <input class="rsvp-input" id="rsvpName" type="text" placeholder="성함을 입력해 주세요." autocomplete="name" />
+          </div>
+
+          <!-- 동행인원 -->
+          <div class="rsvp-field">
+            <label class="rsvp-field-label t-b2" for="rsvpGuests">동행인원 (본인 제외)</label>
+            <div class="rsvp-select-wrap">
+              <select class="rsvp-select" id="rsvpGuests">
+                <option value="0">없음</option>
+                <option value="1">1명</option>
+                <option value="2">2명</option>
+                <option value="3">3명</option>
+                <option value="4">4명</option>
+                <option value="5">5명 이상</option>
+              </select>
+              <img src="./assets/chevron_down.svg" alt="" class="rsvp-select-icon" aria-hidden="true" />
+            </div>
+          </div>
+
+          <!-- 개인정보 동의 -->
+          <div class="rsvp-privacy">
+            <label class="rsvp-checkbox-label">
+              <input type="checkbox" id="rsvpPrivacy" class="rsvp-checkbox" />
+              <span class="rsvp-checkbox-box"></span>
+              <span class="rsvp-privacy-text t-b4">개인정보 수집 및 이용에 동의해요</span>
+            </label>
+          </div>
+
+          <button type="submit" class="rsvp-btn-primary t-b2" id="rsvpSubmit">제출하기</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
 
   <script src="./main.js"></script>
 </body>

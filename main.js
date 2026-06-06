@@ -2,6 +2,135 @@
    wedding-rsvp-0130 | Main JS
    ================================================ */
 
+/* --- RSVP 모달 --------------------------------- */
+
+(function () {
+  const STORAGE_KEY = 'rsvp_modal_hidden_until';
+
+  const overlay    = document.getElementById('rsvpOverlay');
+  const view1      = document.getElementById('rsvpView1');
+  const view2      = document.getElementById('rsvpView2');
+  const closeBtn   = document.getElementById('rsvpClose');
+  const closeBtn2  = document.getElementById('rsvpClose2');
+  const confirmBtn = document.getElementById('rsvpConfirm');
+  const dismissBtn = document.getElementById('rsvpDismiss');
+  const form       = document.getElementById('rsvpForm');
+
+  let triggered = false;
+
+  /* ---- 열기/닫기 ---- */
+  function openModal() {
+    overlay.classList.add('active');
+  }
+
+  function closeModal() {
+    overlay.classList.remove('active');
+    // 닫힐 때 view1으로 리셋
+    setTimeout(() => {
+      view2.classList.add('rsvp-view--hidden');
+      view1.classList.remove('rsvp-view--hidden');
+    }, 300);
+  }
+
+  function dismissForToday() {
+    const midnight = new Date();
+    midnight.setHours(23, 59, 59, 999);
+    localStorage.setItem(STORAGE_KEY, midnight.getTime());
+    closeModal();
+  }
+
+  function shouldShow() {
+    const until = localStorage.getItem(STORAGE_KEY);
+    if (!until) return true;
+    return Date.now() > Number(until);
+  }
+
+  /* ---- account 섹션 진입 시 트리거 ---- */
+  const accountSection = document.getElementById('account');
+  if (accountSection && shouldShow()) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !triggered) {
+          triggered = true;
+          observer.disconnect();
+          setTimeout(openModal, 400);
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(accountSection);
+  }
+
+  /* ---- view 1 → view 2 전환 ---- */
+  confirmBtn.addEventListener('click', () => {
+    view1.classList.add('rsvp-view--hidden');
+    view2.classList.remove('rsvp-view--hidden');
+  });
+
+  /* ---- 닫기 ---- */
+  closeBtn.addEventListener('click', closeModal);
+  closeBtn2.addEventListener('click', closeModal);
+  dismissBtn.addEventListener('click', dismissForToday);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  /* ---- 세그먼트 버튼 ---- */
+  overlay.querySelectorAll('.rsvp-segment').forEach((group) => {
+    group.querySelectorAll('.rsvp-segment-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        group.querySelectorAll('.rsvp-segment-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  });
+
+  /* ---- 폼 제출 ---- */
+  // ✅ Google Apps Script 배포 후 아래 URL을 교체하세요
+  const SHEET_URL = 'YOUR_APPS_SCRIPT_URL';
+
+  form.addEventListener('submit', async (e) => {https://script.google.com/macros/s/AKfycbxdsDr0OpPHbNqszkIBnIKlpozceQRZHJZCtAY3Rp8r9BcBTDQZqcmsBO-FktFM6Eiq/exec
+    e.preventDefault();
+
+    const name    = document.getElementById('rsvpName').value.trim();
+    const privacy = document.getElementById('rsvpPrivacy').checked;
+    const attend  = form.querySelector('.rsvp-segment-btn.active[data-group="attend"]')?.dataset.value;
+    const side    = form.querySelector('.rsvp-segment-btn.active[data-group="side"]')?.dataset.value;
+    const guests  = document.getElementById('rsvpGuests').value;
+
+    if (!name) {
+      document.getElementById('rsvpName').focus();
+      return;
+    }
+    if (!privacy) {
+      document.getElementById('rsvpPrivacy').focus();
+      return;
+    }
+
+    const submitBtn = document.getElementById('rsvpSubmit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '전송 중...';
+
+    try {
+      const params = new URLSearchParams({
+        timestamp: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+        attend, side, name, guests,
+      });
+      // doGet 방식: CORS 헤더 없이도 안정적으로 전달됨
+      await fetch(SHEET_URL + '?' + params.toString(), { mode: 'no-cors' });
+    } catch (_) {
+      // opaque response — 토스트만 표시
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = '제출하기';
+    closeModal();
+
+    const toast = document.getElementById('toast');
+    toast.textContent = '참석 여부가 전달되었습니다 🙏';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  });
+})();
+
 /* --- Envelope scroll-driven animation ---------- */
 
 const envelope  = document.getElementById('envelope');
@@ -185,11 +314,27 @@ function showToast(msg) {
   toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
+function trackAnalyticsEvent(eventName, params = {}) {
+  if (typeof window.gtag !== 'function') return;
+  window.gtag('event', eventName, {
+    page_location: window.location.href,
+    ...params,
+  });
+}
+
 document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const account = btn.dataset.account;
     navigator.clipboard.writeText(account)
-      .then(() => showToast('계좌번호를 복사했습니다.'))
+      .then(() => {
+        showToast('계좌번호를 복사했습니다.');
+        trackAnalyticsEvent('account_copy', {
+          account_id: btn.dataset.accountId,
+          account_side: btn.dataset.accountSide,
+          account_role: btn.dataset.accountRole,
+          account_name: btn.dataset.accountName,
+        });
+      })
       .catch(() => showToast('복사에 실패했습니다'));
   });
 });
@@ -303,7 +448,11 @@ document.getElementById('btnCopyUrl')?.addEventListener('click', () => {
       t.textContent = '링크를 복사했습니다.';
       t.classList.add('show');
       setTimeout(() => t.classList.remove('show'), 2000);
-      gtag?.('event', 'share_click', { method: 'url_copy' });
+      trackAnalyticsEvent('url_copy', {
+        copy_type: 'reshare',
+        share_method: 'url_copy',
+        share_location: 'footer',
+      });
     });
 });
 
@@ -322,7 +471,7 @@ document.getElementById('btnKakaoShare')?.addEventListener('click', () => {
         },
       },
     });
-    gtag?.('event', 'share_click', { method: 'kakao' });
+    trackAnalyticsEvent('share_click', { method: 'kakao' });
   } else {
     navigator.clipboard.writeText('https://wedding-rsvp-0130.vercel.app')
       .then(() => {
@@ -330,6 +479,11 @@ document.getElementById('btnKakaoShare')?.addEventListener('click', () => {
         t.textContent = '링크를 복사했습니다.';
         t.classList.add('show');
         setTimeout(() => t.classList.remove('show'), 2000);
+        trackAnalyticsEvent('url_copy', {
+          copy_type: 'reshare',
+          share_method: 'kakao_fallback_url_copy',
+          share_location: 'footer',
+        });
       });
   }
 });
