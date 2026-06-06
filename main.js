@@ -89,6 +89,52 @@ document.querySelectorAll('.reveal').forEach(el => {
   revealObserver.observe(el);
 });
 
+/* --- Date 달력 --------------------------------- */
+
+function renderCalendar(year, month) {
+  const calDays  = document.getElementById('calDays');
+  const calTitle = document.getElementById('calTitle');
+  if (!calDays || !calTitle) return;
+
+  const monthNames = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+  calTitle.textContent = `${monthNames[month]} ${year}`;
+
+  const firstDay  = new Date(year, month, 1).getDay();
+  const lastDate  = new Date(year, month + 1, 0).getDate();
+  const prevLast  = new Date(year, month, 0).getDate();
+
+  let html = '';
+
+  // 이전 달 날짜
+  for (let i = firstDay - 1; i >= 0; i--) {
+    html += `<span class="other-month">${prevLast - i}</span>`;
+  }
+
+  // 이번 달 날짜
+  for (let d = 1; d <= lastDate; d++) {
+    const isToday = (year === 2027 && month === 0 && d === 30);
+    html += `<span class="${isToday ? 'today' : ''}">${d}</span>`;
+  }
+
+  calDays.innerHTML = html;
+}
+
+let calYear = 2027, calMonth = 0;
+renderCalendar(calYear, calMonth);
+
+document.getElementById('calPrev')?.addEventListener('click', () => {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar(calYear, calMonth);
+});
+
+document.getElementById('calNext')?.addEventListener('click', () => {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar(calYear, calMonth);
+});
+
 /* --- Date pulse -------------------------------- */
 
 const dateHighlight = document.querySelector('.date-highlight');
@@ -143,7 +189,7 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const account = btn.dataset.account;
     navigator.clipboard.writeText(account)
-      .then(() => showToast('계좌번호가 복사되었습니다 ✓'))
+      .then(() => showToast('계좌번호를 복사했습니다.'))
       .catch(() => showToast('복사에 실패했습니다'));
   });
 });
@@ -215,13 +261,13 @@ startAuto();
 kakao.maps.load(() => {
   const container = document.getElementById('kakao-map');
   const options = {
-    center: new kakao.maps.LatLng(37.4569, 127.1454),
+    center: new kakao.maps.LatLng(37.46820, 127.14385),
     level: 4,
   };
   const map = new kakao.maps.Map(container, options);
 
   const marker = new kakao.maps.Marker({
-    position: new kakao.maps.LatLng(37.4569, 127.1454),
+    position: new kakao.maps.LatLng(37.46820, 127.14385),
     map,
   });
 
@@ -232,7 +278,7 @@ kakao.maps.load(() => {
 
   container.style.cursor = 'pointer';
   kakao.maps.event.addListener(map, 'click', () => {
-    window.open('https://naver.me/xVBx7DtV', '_blank');
+    window.open('https://place.map.kakao.com/26865188', '_blank');
   });
 });
 /* --- Footer reveal ----------------------------- */
@@ -247,4 +293,122 @@ const footerObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15 });
 
+/* --- Footer 공유 버튼 -------------------------- */
+
+// URL 복사
+document.getElementById('btnCopyUrl')?.addEventListener('click', () => {
+  navigator.clipboard.writeText('https://wedding-rsvp-0130.vercel.app')
+    .then(() => {
+      const t = document.getElementById('toast');
+      t.textContent = '링크를 복사했습니다.';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+      gtag?.('event', 'share_click', { method: 'url_copy' });
+    });
+});
+
+// 카카오 공유 (SDK 미연동 시 URL 복사로 fallback)
+document.getElementById('btnKakaoShare')?.addEventListener('click', () => {
+  if (window.Kakao?.isInitialized()) {
+    Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: 'Better Together — 2027.01.30',
+        description: '이종현 · 육예진의 결혼식에 초대합니다 💌',
+        imageUrl: 'https://wedding-rsvp-0130.vercel.app/assets/og-image.jpg',
+        link: {
+          mobileWebUrl: 'https://wedding-rsvp-0130.vercel.app',
+          webUrl: 'https://wedding-rsvp-0130.vercel.app',
+        },
+      },
+    });
+    gtag?.('event', 'share_click', { method: 'kakao' });
+  } else {
+    navigator.clipboard.writeText('https://wedding-rsvp-0130.vercel.app')
+      .then(() => {
+        const t = document.getElementById('toast');
+        t.textContent = '링크를 복사했습니다.';
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2000);
+      });
+  }
+});
+
 if (footerEl) footerObserver.observe(footerEl);
+
+/* --- BGM Vinyl Player -------------------------- */
+
+const audio       = new Audio('./assets/bgm.mp3');
+const vinylBtn    = document.getElementById('vinylBtn');
+const vinylDisk   = document.getElementById('vinylDisk');
+const vinylPlayer = document.getElementById('vinylPlayer');
+const bgmFixed    = document.getElementById('bgmFixed');
+const bgmFixedDisk = document.getElementById('bgmFixedDisk');
+
+audio.loop   = true;
+audio.volume = 0;
+let isPlaying = false;
+
+function fadeVolume(target, duration = 400) {
+  const start   = audio.volume;
+  const diff    = target - start;
+  const step    = 16;
+  const steps   = duration / step;
+  let   current = 0;
+  const timer = setInterval(() => {
+    current++;
+    audio.volume = Math.min(1, Math.max(0, start + diff * (current / steps)));
+    if (current >= steps) clearInterval(timer);
+  }, step);
+}
+
+function toggleBGM() {
+  const icon = document.getElementById('bgmFixedIcon');
+  if (isPlaying) {
+    fadeVolume(0);
+    setTimeout(() => audio.pause(), 800);
+    isPlaying = false;
+    vinylDisk.classList.remove('playing');
+    icon.src = './assets/icon-volume-off.svg';   /* off 상태 */
+  } else {
+    audio.play();
+    fadeVolume(0.4);
+    isPlaying = true;
+    vinylDisk.classList.add('playing');
+    icon.src = './assets/icon-volume-on.svg';    /* on 상태 */
+  }
+}
+
+vinylBtn.addEventListener('click', toggleBGM);
+bgmFixed.addEventListener('click', toggleBGM);
+
+// 스크롤 시 바이닐 → 고정 버튼 전환
+function updateBGMScroll() {
+  const rect   = vinylPlayer.getBoundingClientRect();
+  const hidden = rect.bottom < 0;
+  bgmFixed.classList.toggle('visible', hidden);
+}
+
+window.addEventListener('scroll', updateBGMScroll, { passive: true });
+updateBGMScroll();
+
+// 페이지 로드 즉시 자동 재생 시도
+window.addEventListener('load', () => {
+  audio.play().then(() => {
+    fadeVolume(0.4);
+    isPlaying = true;
+    vinylDisk.classList.add('playing');
+    document.getElementById('bgmFixedIcon').src = './assets/icon-volume-on.svg';
+  }).catch(() => {
+    // 브라우저 정책으로 막힌 경우 → 첫 클릭 시 재생
+    document.addEventListener('click', () => {
+      if (!isPlaying) {
+        audio.play();
+        fadeVolume(0.4);
+        isPlaying = true;
+        vinylDisk.classList.add('playing');
+        document.getElementById('bgmFixedIcon').src = './assets/icon-volume-on.svg';
+      }
+    }, { once: true });
+  });
+});

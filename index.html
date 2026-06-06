@@ -40,32 +40,50 @@
 <body>
   <main id="wedding-invitation">
 
-    <!-- HERO -->
-    <section id="hero" class="section-hero">
-      <div class="hero-content">
-        <div class="hero-copy reveal">
-          <h1 class="hero-title t-d1">
-            <span>Better</span>
-            <span>Together</span>
-          </h1>
-          <div class="hero-subtitle">
-            <div class="hero-date t-d2">
-              <span>2027.01.30</span>
-              <span>AM 11:00</span>
-            </div>
-            <div class="hero-location t-d3">
-              <span>Militopia Hotel by Marine</span>
-              <span>Grand Ballroom Hall, 2F</span>
-            </div>
-          </div>
-        </div>
-        <div class="hero-envelope" id="envelope">
-          <img src="./assets/envelope-closed.png" class="env-closed" alt="" aria-hidden="true" />
-          <img src="./assets/envelope-open.svg"   class="env-open"   alt="" aria-hidden="true" />
-          <img src="./assets/envelope-letter.svg" class="env-letter" alt="" aria-hidden="true" />
+   <!-- HERO -->
+<section id="hero" class="section-hero">
+  <div class="hero-content">
+    <div class="hero-copy reveal">
+      <div class="hero-logo-wrap">
+        <img src="./assets/logo-bettertogether.svg" alt="Better Together" class="hero-logo" />
+        <div class="vinyl-player" id="vinylPlayer">
+          <button class="vinyl-btn" id="vinylBtn" aria-label="BGM 재생/정지">
+  <div class="vinyl-disk" id="vinylDisk">
+    <div class="vinyl-ring vinyl-ring--1"></div>
+    <div class="vinyl-ring vinyl-ring--2"></div>
+    <div class="vinyl-ring vinyl-ring--3"></div>
+    <div class="vinyl-ring vinyl-ring--4"></div>
+    <div class="vinyl-center">
+      <span class="vinyl-label">BGM</span>
+    </div>
+  </div>
+  <div class="vinyl-needle"></div>
+</button>
         </div>
       </div>
-    </section>
+      <div class="hero-subtitle">
+        <div class="hero-date t-d2">
+          <span>2027.01.30</span>
+          <span>AM 11:00</span>
+        </div>
+        <div class="hero-names t-d3">
+          <span>JONGHYUN &amp; YEJIN</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-envelope" id="envelope">
+      <img src="./assets/envelope-closed.png" class="env-closed" alt="" aria-hidden="true" />
+      <img src="./assets/envelope-open.svg"   class="env-open"   alt="" aria-hidden="true" />
+      <img src="./assets/envelope-letter.svg" class="env-letter" alt="" aria-hidden="true" />
+    </div>
+  </div>
+</section>
+
+<!-- 고정 BGM 미니 버튼 -->
+<button class="bgm-fixed" id="bgmFixed" aria-label="BGM 재생/정지">
+  <img src="./assets/icon-volume-on.svg" class="bgm-fixed-icon" id="bgmFixedIcon" alt="" />
+</button>
 
     <!-- INTRO -->
     <section id="intro" class="section-intro">
@@ -76,62 +94,101 @@
           기쁜 마음으로 축하해 주세요.
         </p>
       </div>
-      <div class="couple-card reveal reveal--delay-1">
-        <img src="./assets/couple.jpg" alt="신랑 신부 사진" class="couple-img" />
+      <div class="couple-doodle-stage reveal reveal--delay-1" aria-label="신랑 신부 소개 카드">
+        <article class="doodle-card doodle-card--groom" aria-label="신랑 이종현">
+          <img src="./assets/groom-photo.svg" alt="" class="doodle-card-photo" aria-hidden="true" />
+          <div class="doodle-card-label" aria-label="Groom">
+            <span>G</span><span>r</span><span>o</span><span>o</span><span>m</span>
+          </div>
+        </article>
+        <article class="doodle-card doodle-card--bride" aria-label="신부 육예진">
+          <img src="./assets/bride-photo.svg" alt="" class="doodle-card-photo" aria-hidden="true" />
+          <div class="doodle-card-label" aria-label="Bride">
+            <span>B</span><span>r</span><span>i</span><span>d</span><span>e</span>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- DATE -->
-    <section id="date" class="section-date">
-      <div class="date-message reveal">
-        <img src="./assets/event-scheduled.svg" alt="" class="section-icon" aria-hidden="true" />
-        <div class="date-label">
-          <p class="t-b1">우리의 특별한 날이 될</p>
-          <p class="t-b1 date-highlight">
-            2027년 1월 30일(토)<br />
-            오전 11시
-          </p>
-          <p class="t-b1">함께해주세요.</p>
-        </div>
+   <!-- DATE -->
+<section id="date" class="section-date">
+  <div class="date-message reveal">
+    <img src="./assets/event-scheduled.svg" alt="" class="section-icon" aria-hidden="true" />
+    <div class="date-label">
+      <p class="t-b1">우리의 특별한 날이 될</p>
+      <p class="t-b1 date-highlight">
+        2027년 1월 30일(토) 오전 11시
+      </p>
+      <p class="t-b1">함께해주세요.</p>
+    </div>
+  </div>
+
+  <div class="calendar-card reveal reveal--delay-1">
+    <div class="calendar-header">
+      <button class="cal-arrow" id="calPrev" aria-label="이전 달"></button>
+      <span class="cal-title" id="calTitle">January 2027</span>
+      <button class="cal-arrow" id="calNext" aria-label="다음 달"></button>
+    </div>
+    <div class="calendar-grid">
+      <div class="cal-weekdays">
+        <span>SUN</span><span>MON</span><span>TUE</span>
+        <span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
       </div>
-      <div class="calendar-card reveal reveal--delay-1">
-        <img src="./assets/calendar.png" alt="2027년 1월 달력" class="calendar-img" />
-      </div>
-    </section>
+      <div class="cal-days" id="calDays"></div>
+    </div>
+  </div>
+</section>
 
     <!-- LOCATION -->
-    <section id="location" class="section-location">
-      <div class="location-contents reveal">
-        <div class="location-header">
-          <img src="./assets/location.svg" alt="" class="section-icon" aria-hidden="true" />
-          <p class="t-b1">
-            우리의 웨딩 장소는<br />
-            바로 여기에요!
-          </p>
-        </div>
-        <div class="map-card" id="kakao-map"></div>
-        <p class="t-b2 venue-info">
-          밀리토피아호텔 바이 마린<br />
-          2F 그랜드볼룸홀
-        </p>
-      </div>
-      <div class="transport-list reveal reveal--delay-1">
-        <div class="transport-item">
-          <p class="t-b3">지하철</p>
-          <p class="t-b4">8호선 남위례역 3번 출구 도보 8~10분</p>
-        </div>
-        <hr class="transport-divider" />
-        <div class="transport-item">
-          <p class="t-b3">셔틀버스</p>
-          <p class="t-b4">남위례역 5번 출구 앞 운행 (약 15분 간격)</p>
-        </div>
-        <hr class="transport-divider" />
-        <div class="transport-item">
-          <p class="t-b3">주차 안내</p>
-          <p class="t-b4">800대 주차 가능 / 무료 주차 지원</p>
-        </div>
-      </div>
-    </section>
+<section id="location" class="section-location">
+  <div class="location-contents reveal">
+    <div class="location-header">
+      <img src="./assets/location.svg" alt="" class="section-icon" aria-hidden="true" />
+      <p class="t-b1">
+        우리의 웨딩 장소는<br />
+        바로 여기에요!
+      </p>
+    </div>
+    <p class="t-b2 venue-info-orange">
+      밀리토피아호텔 바이 마린<br />
+      2F 그랜드볼룸홀
+    </p>
+    <div class="map-card" id="kakao-map"></div>
+    <!-- 지도 앱 버튼 그룹 -->
+    <div class="map-links">
+      <a class="map-link-btn" href="https://naver.me/xVBx7DtV" target="_blank" rel="noopener">
+        <img src="./assets/icon-naver-map.svg" alt="" class="map-link-icon" />
+        <span>네이버 지도</span>
+      </a>
+      <div class="map-link-divider"></div>
+      <a class="map-link-btn" href="https://place.map.kakao.com/26865188" target="_blank" rel="noopener noreferrer">
+        <img src="./assets/icon-kakao-map.svg" alt="" class="map-link-icon" />
+        <span>카카오맵</span>
+      </a>
+      <div class="map-link-divider"></div>
+      <a class="map-link-btn" href="https://tmap.life/place?id=26865188&name=밀리토피아호텔바이마린" target="_blank" rel="noopener">
+        <img src="./assets/icon-tmap.svg" alt="" class="map-link-icon" />
+        <span>티맵</span>
+      </a>
+    </div>
+  </div>
+  <div class="transport-list reveal reveal--delay-1">
+    <div class="transport-item">
+      <p class="t-b3">지하철</p>
+      <p class="t-b4">8호선 남위례역 3번 출구 도보 8~10분</p>
+    </div>
+    <hr class="transport-divider" />
+    <div class="transport-item">
+      <p class="t-b3">셔틀버스</p>
+      <p class="t-b4">남위례역 5번 출구 앞 운행 (약 15분 간격)</p>
+    </div>
+    <hr class="transport-divider" />
+    <div class="transport-item">
+      <p class="t-b3">주차 안내</p>
+      <p class="t-b4">800대 주차 가능 / 무료 주차 지원</p>
+    </div>
+  </div>
+</section>
 
     <!-- MENU -->
     <section id="menu" class="section-menu">
@@ -244,26 +301,39 @@
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer id="footer" class="section-footer">
-      <img src="./assets/footer-bg.jpg" alt="" class="footer-bg" aria-hidden="true" />
-      <div class="footer-content reveal">
+   <!-- FOOTER -->
+<footer id="footer" class="section-footer">
+  <img src="./assets/footer-bg.jpg" alt="" class="footer-bg" aria-hidden="true" />
+  <div class="footer-overlay"></div>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-content">
         <img src="./assets/graphic.svg" alt="" class="footer-graphic" aria-hidden="true" />
-        <p class="t-b2 footer-message">
+        <p class="footer-message">
           좋은 일, 힘든 일<br />
           함께 이겨내며 나아가겠습니다.
         </p>
       </div>
-      <p class="t-cap footer-copyright">
-        COPYRIGHT @yejinyook<br />
-        ALL RIGHTS RESERVED.
-      </p>
-    </footer>
-
-  </main>
+      <div class="footer-share-btns">
+        <button class="share-btn share-btn--url" id="btnCopyUrl">
+          <img src="./assets/icon-link.svg" alt="" class="share-btn-icon" />
+          URL 복사
+        </button>
+        <button class="share-btn share-btn--kakao" id="btnKakaoShare">
+          <img src="./assets/icon-kakao-talk.svg" alt="" class="share-btn-icon" />
+          카카오 공유
+        </button>
+      </div>
+    </div>
+    <p class="footer-copyright">
+      COPYRIGHT @yejinyook<br />
+      ALL RIGHTS RESERVED.
+    </p>
+  </div>
+</footer>
 
   <!-- 토스트 -->
-  <div class="toast" id="toast">계좌번호가 복사되었습니다 ✓</div>
+  <div class="toast" id="toast">계좌번호를 복사했습니다.</div>
 
   <script src="./main.js"></script>
 </body>
