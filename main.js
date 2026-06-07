@@ -108,31 +108,25 @@
     submitBtn.disabled = true;
     submitBtn.textContent = '전송 중...';
 
-    const toast = document.getElementById('toast');
-    let success = false;
-
-    try {
-      const params = new URLSearchParams({
-        timestamp: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
-        attend, side, name, guests,
-      });
-      const res = await fetch(SHEET_URL + '?' + params.toString());
-      if (res.ok) success = true;
-    } catch (err) {
-      console.error('[RSVP] fetch 오류:', err);
-    }
+    // img 요청: CORS·리다이렉트 우회, Apps Script doGet에 안정적으로 도달
+    const params = new URLSearchParams({
+      timestamp: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+      attend, side, name, guests,
+    });
+    await new Promise((resolve) => {
+      const img = new Image();
+      img.onload = img.onerror = resolve;
+      img.src = SHEET_URL + '?' + params.toString();
+    });
 
     submitBtn.disabled = false;
     submitBtn.textContent = '제출하기';
+    closeModal();
 
-    if (success) {
-      closeModal();
-      toast.textContent = '참석 여부가 전달되었습니다 🙏';
-    } else {
-      toast.textContent = '❌ 전송 실패 — 콘솔(F12) 오류를 확인해주세요';
-    }
+    const toast = document.getElementById('toast');
+    toast.textContent = '참석 여부가 전달되었습니다 🙏';
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 4000);
+    setTimeout(() => toast.classList.remove('show'), 3000);
   });
 })();
 
