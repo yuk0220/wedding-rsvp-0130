@@ -84,7 +84,7 @@
   });
 
   /* ---- 폼 제출 ---- */
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxdsDr0OpPHbNqszkIBnIKlpozceQRZHJZCtAY3Rp8r9BcBTDQZqcmsBO-FktFM6Eiq/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzbIFEfgenGWoU8mjq3lOXUsDZvJGDl2M_RH1zVodQhf6SkqWnoJEKL7WcoDoXj3arC/exec';
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
