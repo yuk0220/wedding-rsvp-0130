@@ -84,10 +84,9 @@
   });
 
   /* ---- 폼 제출 ---- */
-  // ✅ Google Apps Script 배포 후 아래 URL을 교체하세요
-  const SHEET_URL = 'YOUR_APPS_SCRIPT_URL';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxdsDr0OpPHbNqszkIBnIKlpozceQRZHJZCtAY3Rp8r9BcBTDQZqcmsBO-FktFM6Eiq/exec';
 
-  form.addEventListener('submit', async (e) => {https://script.google.com/macros/s/AKfycbxdsDr0OpPHbNqszkIBnIKlpozceQRZHJZCtAY3Rp8r9BcBTDQZqcmsBO-FktFM6Eiq/exec
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name    = document.getElementById('rsvpName').value.trim();
